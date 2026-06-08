@@ -1,0 +1,630 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="x-poe-datastore-behavior" content="local_only"><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>爆款IP的情绪结构检查表</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+        --ink: #1a1a1a;
+        --ink-soft: #4a4a4a;
+        --paper: #faf8f4;
+        --card: #ffffff;
+        --accent: #c0392b;
+        --accent-soft: #e8b9b3;
+        --gold: #b8923a;
+        --line: #e3ddd2;
+        --line-strong: #2c2620;
+        --neon: #ff2e88;
+        --neon2: #18e0ff;
+    }
+
+    body {
+        font-family: 'Noto Sans SC', sans-serif;
+        background: #ece7df;
+        color: var(--ink);
+        line-height: 1.7;
+        padding: 24px 12px;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+        max-width: 820px;
+        margin: 0 auto;
+        background: var(--paper);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* ---------- Cover Header ---------- */
+    .cover {
+        background: var(--line-strong);
+        color: #f4efe6;
+        padding: 48px 40px 40px;
+        position: relative;
+        overflow: hidden;
+    }
+    .cover::before {
+        content: "";
+        position: absolute;
+        top: -60px; right: -60px;
+        width: 220px; height: 220px;
+        border: 1px solid rgba(244,239,230,0.18);
+        border-radius: 50%;
+    }
+    .cover::after {
+        content: "";
+        position: absolute;
+        top: -20px; right: -20px;
+        width: 140px; height: 140px;
+        border: 1px solid rgba(184,146,58,0.4);
+        border-radius: 50%;
+    }
+    .brand-tag {
+        position: absolute;
+        top: 22px; right: 26px;
+        font-size: 11px;
+        letter-spacing: 2px;
+        color: var(--neon);
+        z-index: 3;
+        text-shadow: 0 0 8px rgba(255,46,136,0.6);
+        font-weight: 500;
+    }
+    .kicker {
+        font-size: 12px;
+        letter-spacing: 6px;
+        color: var(--gold);
+        font-weight: 500;
+        margin-bottom: 18px;
+    }
+    .cover h1 {
+        font-family: 'Noto Serif SC', serif;
+        font-size: 38px;
+        font-weight: 900;
+        line-height: 1.25;
+        letter-spacing: 1px;
+        margin-bottom: 16px;
+        position: relative;
+        z-index: 2;
+    }
+    .cover .sub {
+        font-size: 14px;
+        color: rgba(244,239,230,0.72);
+        font-weight: 300;
+        max-width: 90%;
+        position: relative;
+        z-index: 2;
+    }
+    .cover .meta {
+        margin-top: 26px;
+        display: flex;
+        gap: 28px;
+        flex-wrap: wrap;
+        font-size: 11px;
+        letter-spacing: 1px;
+        color: rgba(244,239,230,0.55);
+        border-top: 1px solid rgba(244,239,230,0.15);
+        padding-top: 18px;
+        position: relative;
+        z-index: 2;
+    }
+    .cover .meta b { color: var(--gold); font-weight: 600; }
+
+    /* ---------- Intro / object info ---------- */
+    .intro { padding: 30px 40px 10px; }
+    .intro .lead {
+        font-family: 'Noto Serif SC', serif;
+        font-size: 15px;
+        color: var(--ink-soft);
+        border-left: 3px solid var(--accent);
+        padding-left: 16px;
+        margin-bottom: 26px;
+    }
+    .obj-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-bottom: 10px;
+    }
+    .obj-field {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 12px 14px;
+    }
+    .obj-field label {
+        display: block;
+        font-size: 10px;
+        letter-spacing: 1px;
+        color: #998f7f;
+        margin-bottom: 6px;
+        font-weight: 500;
+    }
+    .obj-field input {
+        width: 100%;
+        border: none;
+        background: transparent;
+        font-family: inherit;
+        font-size: 14px;
+        color: var(--ink);
+        outline: none;
+        border-bottom: 1px dashed var(--line);
+        padding-bottom: 4px;
+    }
+    .obj-field input::placeholder { color: #c4bcae; }
+
+    /* ---------- Sections ---------- */
+    .section { padding: 14px 40px; }
+    .sec-head {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin: 22px 0 8px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid var(--line-strong);
+    }
+    .sec-num {
+        font-family: 'Noto Serif SC', serif;
+        font-size: 30px;
+        font-weight: 900;
+        color: var(--paper);
+        background: var(--line-strong);
+        width: 50px; height: 50px;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+        position: relative;
+    }
+    .sec-num span {
+        position: absolute;
+        bottom: 3px; right: 5px;
+        font-size: 8px;
+        color: var(--gold);
+        letter-spacing: 0;
+        font-family: 'Noto Sans SC';
+    }
+    .sec-title-wrap h2 {
+        font-family: 'Noto Serif SC', serif;
+        font-size: 21px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+    .sec-title-wrap p {
+        font-size: 12px;
+        color: #998f7f;
+        font-weight: 300;
+        margin-top: 2px;
+    }
+    .sec-question {
+        font-family: 'Noto Serif SC', serif;
+        font-size: 14px;
+        font-style: italic;
+        color: var(--accent);
+        margin: 14px 0 18px;
+        padding-left: 4px;
+    }
+
+    /* ---------- Checklist items ---------- */
+    .item {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 16px 18px;
+        margin-bottom: 12px;
+        transition: 0.2s;
+        cursor: pointer;
+    }
+    .item:hover { border-color: var(--accent-soft); box-shadow: 0 4px 14px rgba(192,57,43,0.06); }
+    .item.checked { background: #fdfbf7; border-color: var(--accent); }
+    .item-top { display: flex; align-items: flex-start; gap: 12px; }
+    .box {
+        width: 22px; height: 22px;
+        border: 2px solid var(--line-strong);
+        border-radius: 5px;
+        flex-shrink: 0;
+        margin-top: 1px;
+        display: flex; align-items: center; justify-content: center;
+        transition: 0.15s;
+    }
+    .item.checked .box { background: var(--accent); border-color: var(--accent); }
+    .box svg { opacity: 0; transition: 0.15s; }
+    .item.checked .box svg { opacity: 1; }
+    .item-text { flex: 1; }
+    .item-q { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.55; }
+    .item-hint { font-size: 12px; color: #8f8676; margin-top: 5px; line-height: 1.6; }
+    .item-hint b { color: var(--accent); font-weight: 600; }
+    .item-note {
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px dashed var(--line);
+        display: none;
+    }
+    .item.checked .item-note { display: block; }
+    .item-note textarea {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--paper);
+        padding: 8px 10px;
+        font-family: inherit;
+        font-size: 12px;
+        color: var(--ink-soft);
+        resize: vertical;
+        min-height: 42px;
+        outline: none;
+    }
+    .item-note textarea:focus { border-color: var(--accent-soft); }
+    .item-note label { font-size: 10px; color: #998f7f; letter-spacing: 1px; }
+
+    /* ---------- Scoring panel ---------- */
+    .score-panel {
+        position: sticky;
+        bottom: 0;
+        background: var(--line-strong);
+        color: #f4efe6;
+        padding: 18px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 16px;
+        z-index: 50;
+    }
+    .score-info { font-size: 12px; color: rgba(244,239,230,0.6); }
+    .score-info b { color: var(--gold); font-size: 13px; }
+    .score-big { display: flex; align-items: baseline; gap: 6px; }
+    .score-big .n {
+        font-family: 'Noto Serif SC', serif;
+        font-size: 42px; font-weight: 900;
+        color: var(--gold); line-height: 1;
+    }
+    .score-big .d { font-size: 16px; color: rgba(244,239,230,0.5); }
+    .score-bar {
+        flex: 1; min-width: 180px; height: 8px;
+        background: rgba(244,239,230,0.15);
+        border-radius: 4px; overflow: hidden;
+    }
+    .score-fill {
+        height: 100%; width: 0%;
+        background: linear-gradient(90deg, var(--accent), var(--gold));
+        transition: width 0.4s ease;
+    }
+    .verdict {
+        font-family: 'Noto Serif SC', serif;
+        font-size: 14px; font-weight: 700;
+        color: #f4efe6; min-width: 120px; text-align: right;
+    }
+
+    /* ---------- Final summary ---------- */
+    .summary { padding: 30px 40px 36px; background: var(--paper); }
+    .summary h3 {
+        font-family: 'Noto Serif SC', serif;
+        font-size: 18px; margin-bottom: 14px;
+        display: flex; align-items: center; gap: 8px;
+    }
+    .summary h3::before { content: ""; width: 22px; height: 2px; background: var(--accent); }
+    .quadrant { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+    .q-card {
+        border: 1px solid var(--line); border-radius: 8px;
+        padding: 14px; background: var(--card); font-size: 12px;
+    }
+    .q-card .t { font-weight: 700; font-size: 13px; margin-bottom: 4px; }
+    .q-card .green { color: #2d7a4f; }
+    .q-card .red { color: var(--accent); }
+    .q-card .gold { color: var(--gold); }
+    .q-card p { color: var(--ink-soft); line-height: 1.6; }
+    .final-note {
+        margin-top: 18px;
+        font-family: 'Noto Serif SC', serif;
+        font-size: 13px; color: var(--ink-soft);
+        background: #f3eee4;
+        border-left: 3px solid var(--gold);
+        padding: 14px 18px; line-height: 1.8;
+    }
+
+    /* ---------- Signature / Logo block ---------- */
+    .signoff {
+        background: #14110d;
+        padding: 38px 40px 34px;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+    }
+    .signoff::before {
+        content: "";
+        position: absolute;
+        left: 50%; top: 0;
+        transform: translateX(-50%);
+        width: 60%; height: 1px;
+        background: linear-gradient(90deg, transparent, var(--neon), var(--neon2), transparent);
+        opacity: 0.7;
+    }
+    .signoff .from {
+        font-size: 11px;
+        letter-spacing: 4px;
+        color: rgba(244,239,230,0.4);
+        margin-bottom: 18px;
+    }
+    .logo-neon {
+        font-family: 'Noto Serif SC', serif;
+        font-size: 30px;
+        font-weight: 900;
+        letter-spacing: 3px;
+        background: linear-gradient(90deg, var(--neon), #ff7ab0, var(--neon2));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: relative;
+        z-index: 2;
+        animation: flicker 4.5s infinite;
+    }
+    .logo-glow {
+        position: absolute;
+        left: 50%; top: 52%;
+        transform: translate(-50%, -50%);
+        font-family: 'Noto Serif SC', serif;
+        font-size: 30px; font-weight: 900; letter-spacing: 3px;
+        color: var(--neon);
+        filter: blur(18px);
+        opacity: 0.55;
+        z-index: 1;
+        white-space: nowrap;
+        animation: flicker 4.5s infinite;
+    }
+    @keyframes flicker {
+        0%, 100% { opacity: 1; }
+        92% { opacity: 1; }
+        93% { opacity: 0.4; }
+        94% { opacity: 1; }
+        96% { opacity: 0.6; }
+        97% { opacity: 1; }
+    }
+    .logo-wrap { position: relative; display: inline-block; margin-bottom: 10px; }
+    .by {
+        font-size: 13px;
+        letter-spacing: 2px;
+        color: rgba(244,239,230,0.75);
+        margin-top: 6px;
+    }
+    .by b { color: var(--neon2); font-weight: 500; }
+    .signoff .tagline {
+        margin-top: 18px;
+        font-family: 'Noto Serif SC', serif;
+        font-size: 12px;
+        color: rgba(244,239,230,0.45);
+        font-style: italic;
+    }
+
+    .footer {
+        background: var(--line-strong);
+        color: rgba(244,239,230,0.45);
+        text-align: center;
+        font-size: 11px;
+        letter-spacing: 1px;
+        padding: 16px;
+    }
+    .footer b { color: var(--gold); }
+
+    .toolbar {
+        max-width: 820px;
+        margin: 0 auto 14px;
+        display: flex; gap: 10px; justify-content: flex-end;
+    }
+    .btn {
+        background: var(--line-strong);
+        color: #f4efe6; border: none;
+        padding: 9px 18px; border-radius: 6px;
+        font-family: inherit; font-size: 12px;
+        cursor: pointer; letter-spacing: 1px; transition: 0.2s;
+    }
+    .btn:hover { background: var(--accent); }
+    .btn.ghost { background: transparent; color: var(--ink-soft); border: 1px solid var(--line); }
+    .btn.ghost:hover { background: var(--card); color: var(--accent); }
+
+    @media (max-width: 600px) {
+        .cover { padding: 36px 22px 30px; }
+        .cover h1 { font-size: 27px; }
+        .brand-tag { top: 16px; right: 18px; font-size: 10px; }
+        .intro, .section, .summary, .score-panel, .signoff { padding-left: 22px; padding-right: 22px; }
+        .obj-grid, .quadrant { grid-template-columns: 1fr; }
+        .sec-num { width: 42px; height: 42px; font-size: 24px; }
+        .verdict { text-align: left; }
+        .logo-neon, .logo-glow { font-size: 23px; }
+    }
+
+    @media print {
+        body { background: #fff; padding: 0; }
+        .toolbar { display: none; }
+        .page { box-shadow: none; max-width: 100%; }
+        .item { break-inside: avoid; }
+        .score-panel { position: static; }
+        .item-note { display: block !important; }
+        .logo-neon, .logo-glow { animation: none; }
+    }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+    <button class="btn ghost" onclick="resetAll()">重置</button>
+    <button class="btn" onclick="window.print()">打印 / 导出 PDF</button>
+</div>
+
+<div class="page">
+
+    <!-- COVER -->
+    <div class="cover">
+        <div class="brand-tag">@孤岛霓虹灯</div>
+        <div class="kicker">IP DIAGNOSTIC TOOLKIT</div>
+        <h1>爆款 IP 的<br>情绪结构检查表</h1>
+        <p class="sub">把一个 IP 当作"症状"来读——用一套跨学科框架，从视觉符号到财报数据，逆向推导"为什么是它火"。</p>
+        <div class="meta">
+            <div>维度 <b>5</b> 个</div>
+            <div>检查项 <b>20</b> 条</div>
+            <div>适用 <b>潮玩 · 游戏角色 · 表情包 · 消费品牌</b></div>
+            <div>版本 <b>v1.0</b></div>
+        </div>
+    </div>
+
+    <!-- INTRO + OBJECT -->
+    <div class="intro">
+        <p class="lead">大多数人问"下一个爆款是什么"。这份表只回答一个问题：为什么是它？先填写你要诊断的对象，再逐项打分。</p>
+        <div class="obj-grid">
+            <div class="obj-field"><label>诊断对象 / IP 名称</label><input type="text" placeholder="例：Labubu / THE MONSTERS"></div>
+            <div class="obj-field"><label>所属公司 / 品类</label><input type="text" placeholder="例：泡泡玛特 / 搪胶毛绒"></div>
+            <div class="obj-field"><label>诊断人</label><input type="text" placeholder="你的名字"></div>
+            <div class="obj-field"><label>日期</label><input type="text" placeholder="YYYY / MM / DD"></div>
+        </div>
+    </div>
+
+    <!-- SECTION 1 -->
+    <div class="section">
+        <div class="sec-head">
+            <div class="sec-num">01<span>SYMBOL</span></div>
+            <div class="sec-title-wrap"><h2>视觉符号</h2><p>Visual Symbols · 把 IP 当成纯粹的视觉文本来解码</p></div>
+        </div>
+        <p class="sec-question">"它最反常的地方是什么？"——找出那个偏离常规的符号。</p>
+        <div class="item" data-w="1"><div class="item-top"><div class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M20 6L9 17l-5-5"></path></svg></div><div class="item-text"><div class="item-q">能否在 1 句话内说出它最"反常"的一个视觉特征？</div><div class="item-hint">如 Labubu 的<b>一排尖牙</b>——它打破了 Hello Kitty / Miffy / Duffy 这类"被动客体"的范式。</div></div></div><div class="item-note"><label>记录这个反常符号</label><textarea></textarea></div></div>
+        <div class="item" data-w="1"><div class="item-top"><div class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M20 6L9 17l-5-5"></path></svg></div><div class="item-text"><div class="item-q">这个符号是否携带一种"主动信号"（攻击性 / 脾气 / 表情）？</div><div class="item-hint">牙齿编码"我能咬你"。区别于<b>没有嘴的中立客体</b>——主动信号意味着它会"回应"你。</div></div></div><div class="item-note"><label>它发出的主动信号是</label><textarea></textarea></div></div>
+        <div class="item" data-w="1"><div class="item-top"><div class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M20 6L9 17l-5-5"></path></svg></div><div class="item-text"><div class="item-q">是否同时具备触发"照护本能"的婴儿图式特征？</div><div class="item-hint">圆轮廓、短四肢、大头身比——这些是经典的<b>萌特征 (kindchenschema)</b>。</div></div></div><div class="item-note"><label>它的萌特征是</label><textarea></textarea></div></div>
+        <div class="item" data-w="1"><div class="item-top"><div class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M20 6L9 17l-5-5"></path></svg></div><div class="item-text"><div class="item-q">这个符号在同类 IP 中是否罕见、难以被简单模仿？</div><div class="item-hint">符号越独特，越难被竞品复制，护城河越深。</div></div></div><div class="item-note"><label>对比同类后的判断</label><textarea></textarea></div></div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="section">
+        <div class="sec-head">
+            <div class="sec-num">02<span>TENSION</span></div>
+            <div class="sec-title-wrap"><h2>情绪张力</h2><p>Emotional Tension · 矛盾信号制造的精神张力</p></div>
+        </div>
+        <p class="sec-question">"两个矛盾的信号，是否同时存在？"</p>
+        <div class="item" data-w="2"><div class="item-top"><div class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M20 6L9 17l-5-5"></path></svg></div><div class="item-text"><div class="item-q">是否同时编码了"攻击性"与"需要被照顾"两种矛盾信号？</div><div class="item-hint">这是整套框架的<b>核心命中点</b>。矛盾 = 张力 = 反复解读的空间。（权重 ×2）</div></div></div><div class="item-note"><label>矛盾的两极分别是</label><textarea></textarea></div></div>
+        <div class="item" data-w="2"><div class="item-top"><div class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M20 6L9 17l-5-5"></path></svg></div><div class="item-text"><div class="item-q">同一个形象，不同时刻能否读出不同情绪？</div><div class="item-hint">有时调皮、有时凶、有时像在保护你——这种<b>模糊性</b>是长期留存的引擎。（权重 ×2）</div></div></div><div class="item-note"><label>你能读出的几种情绪</label><textarea></textarea></div></div>
+        <div class="item" data-w="1"><div class="item-top"><div class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M20 6L9 17l-5-5"></path></svg></div><div class="item-text"><div class="item-q">它是否避免了"纯粹好客体"的脆弱感？</div><div class="item-hint">永远微笑、完美无害的客体，在无意识里"经不起复杂情感"。</div></div></div><div class="item-note"><label>它如何避免"太完美"</label><textarea></textarea></div></div>
+        <div class="item" data-w="1"><div class="item-top"><div class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M20 6L9 17l-5-5"></path></svg></div><div class="item-text"><div class="item-q">这种张力是否"耐看 / 耐久"，而非一次性新奇？</div><div class="item-hint">参照史迪奇：有攻击性的可爱，比纯粹的可爱更长青。</div></div></div><div class="item-note"><label>耐久性的依据</label><textarea></textarea></div></div>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="section">
+        <div class="sec-head">
+            <div class="sec-num">03<span>RELATION</span></div>
+            <div class="sec-title-wrap"><h2>关系结构</h2><p>Relationship Structure · 消费者与它建立的关系类型</p></div>
+        </div>
+        <p class="sec-question">"它在消费者心里，到底承担了什么角色？"</p>
+        <div class="item" data-w="2"><div class="item-top"><div class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M20 6L9 17l-5-5"></path></svg></div><div class="item-text"><div class="item-q">它能否扮演"被攻击后仍幸存的客体"？</div><div class="item-hint">Winnicott 概念：它不脆弱、不报复、不崩溃，能<b>承受你的一切情绪</b>，由此产生深层信任。（权重 ×2）</div></div></div><div class="item-note"><label>它"幸存"的信号</label><textarea></textarea></div></div>
+        <div class="item" data-w="2"><div class="item-top"><div class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M20 6L9 17l-5-5"></path></svg></div><div class="item-text"><div class="item-q">关系是"伙伴" 而非"小心翼翼的照护"？</div><div class="item-hint">它有自己的脾气，所以你也不必压抑自己——<b>伙伴关系</b>远比"好可爱"更深、更持久。（权重 ×2）</div></div></div><div class="item-note"><label>这段关系更像</label><textarea></textarea></div></div>
+        <div class="item" data-w="1"><div class="item-top"><div class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M20 6L9 17l-5-5"></path></svg></div><div class="item-text"><div class="item-q">这种绑定是否触碰底层心理结构，而非表层审美偏好？</div><div class="item-hint">越接近普世心理结构，越不依赖单一文化语境。</div></div></div><div class="item-note"><label>触碰的底层需求是</label><textarea></textarea></div></div>
+        <div class="item" data-w="1"><div class="item-top"><div class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M20 6L9 17l-5-5"></path></svg></div><div class="item-text"><div class="item-q">消费者是否愿意为它"赋予人格 / 起名 / 投射故事"？</div><div class="item-hint">人格化程度越高，情感账户越厚，复购与传播越自发。</div></div></div><div class="item-note"><label>人格化证据</label><textarea></textarea></div></div>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="section">
+        <div class="sec-head">
+            <div class="sec-num">04<span>COMMERCE</span></div>
+            <div class="sec-title-wrap"><h2>商业转译</h2><p>Business Translation · 心理机制 → 商业指标</p></div>
+        </div>
+        <p class="sec-question">"这种情感结构，能否转化成可衡量的商业优势？"</p>
+        <div class="item" data-w="1"><div class="item-top"><div class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M20 6L9 17l-5-5"></path></svg></div><div class="item-text"><div class="item-q">情感解读空间是否支撑更长的 IP 生命周期？</div><div class="item-hint">矛盾性 → 反复解读 → <b>抗衰减</b>，而非快速达峰后回落。</div></div></div><div class="item-note"><label>生命周期判断</label><textarea></textarea></div></div>
+        <div class="item" data-w="1"><div class="item-top"><div class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M20 6L9 17l-5-5"></path></svg></div><div class="item-text"><div class="item-q">底层符号是否支持高成功率的系列延展？</div><div class="item-hint">新主题、新配色、新联名更易被接受 → <b>SKU 扩展天花板更高</b>。</div></div></div><div class="item-note"><label>已验证的延展方向</label><textarea></textarea></div></div>
+        <div class="item" data-w="1"><div class="item-top"><div class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M20 6L9 17l-5-5"></path></svg></div><div class="item-text"><div class="item-q">"矛盾性吸引力"是否具备跨文化穿透力？</div><div class="item-hint">绕开文化层面的审美差异，直接命中底层心理结构。</div></div></div><div class="item-note"><label>跨文化迁移能力</label><textarea></textarea></div></div>
+        <div class="item" data-w="1"><div class="item-top"><div class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M20 6L9 17l-5-5"></path></svg></div><div class="item-text"><div class="item-q">符号能否从单一造型扩展为"符号系统"（挂件/毛绒/配饰/日常场景）？</div><div class="item-hint">价值来自系统，而非单个 SKU——决定了跨品类延展力。</div></div></div><div class="item-note"><label>可延展的场景</label><textarea></textarea></div></div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="section">
+        <div class="sec-head">
+            <div class="sec-num">05<span>FINANCE</span></div>
+            <div class="sec-title-wrap"><h2>财报验证</h2><p>Financial Verification · 用公开数据做现实检验</p></div>
+        </div>
+        <p class="sec-question">"数据，是否和这套心理解释高度一致？"（数据不能单独证明机制，但能证伪它）</p>
+        <div class="item" data-w="1"><div class="item-top"><div class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M20 6L9 17l-5-5"></path></svg></div><div class="item-text"><div class="item-q">是"长期沉淀后被集中放大"，还是"出生即网红"？</div><div class="item-hint">参照 THE MONSTERS：2019 推出，2020–23 缓慢增长约 80%，<b>2024 才真正跃迁</b>（+726.6%）。沉淀型更可靠。</div></div></div><div class="item-note"><label>增长曲线形态</label><textarea></textarea></div></div>
+        <div class="item" data-w="1"><div class="item-top"><div class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M20 6L9 17l-5-5"></path></svg></div><div class="item-text"><div class="item-q">区域扩散是否同步发生（而非单一市场）？</div><div class="item-hint">2024 海外收入 +375.2%，占比 38.9%，东南亚/北美/欧澳同步增长 → 验证跨文化吸附力。</div></div></div><div class="item-note"><label>区域数据</label><textarea></textarea></div></div>
+        <div class="item" data-w="1"><div class="item-top"><div class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M20 6L9 17l-5-5"></path></svg></div><div class="item-text"><div class="item-q">热度是否在次年继续放大，而非快速退潮？</div><div class="item-hint">2025 THE MONSTERS 收入 141.61 亿、+365.7%、占比 38.1% → "网红快速退潮"曲线尚未出现。</div></div></div><div class="item-note"><label>持续性数据</label><textarea></textarea></div></div>
+        <div class="item" data-w="1"><div class="item-top"><div class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M20 6L9 17l-5-5"></path></svg></div><div class="item-text"><div class="item-q">⚠ 风险位：单一 IP 依赖度 / 增速斜率是否在恶化？</div><div class="item-hint">占比从 23.3%→38.1% 依赖加深；2026 Q1 增速回落至 75–80%。需验证<b>高基数下能否平稳正常化</b>，及是否过度消耗符号张力。</div></div></div><div class="item-note"><label>风险评估</label><textarea></textarea></div></div>
+    </div>
+
+    <!-- SCORE PANEL -->
+    <div class="score-panel">
+        <div class="score-info">已勾选 <b id="checkedCount">0</b> 项 · 加权得分</div>
+        <div class="score-bar"><div class="score-fill" id="scoreFill"></div></div>
+        <div class="score-big"><span class="n" id="scoreNum">0</span><span class="d">/ 26</span></div>
+        <div class="verdict" id="verdict">待评估</div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="summary">
+        <h3>结论矩阵：四种诊断结果</h3>
+        <div class="quadrant">
+            <div class="q-card"><div class="t green">高张力 + 财报验证 ✓</div><p>真正的结构性爆款。具备情绪复杂性、跨文化与跨品类延展力，被市场"集中识别"——值得长期下注。</p></div>
+            <div class="q-card"><div class="t gold">高张力 + 财报未验证</div><p>潜力股 / 早期信号。符号结构成立但尚未被放大，等待"情绪需求 + 渠道势能"的激活时点。</p></div>
+            <div class="q-card"><div class="t gold">低张力 + 财报亮眼</div><p>典型网红效应。靠明星带货或一次性话题冲高，缺乏底层结构支撑，警惕快速达峰后衰减。</p></div>
+            <div class="q-card"><div class="t red">低张力 + 财报平淡</div><p>纯粹的"好客体"。温柔无害但经不起复杂情感，难以建立深度伙伴关系，谨慎投入。</p></div>
+        </div>
+        <div class="final-note">
+            数据不能单独证明心理机制，但能与之"高度一致"或将其证伪。真正值得追问的，从来不是"它还会不会上热搜"，而是：<b style="color:var(--accent)">它在消费者心里到底承担了什么角色，以及这个角色能否在高基数下沉淀为持续复购。</b>答案，往往不全在销售数据里。
+        </div>
+    </div>
+
+    <!-- SIGN-OFF / LOGO -->
+    <div class="signoff">
+        <div class="from">A FRAMEWORK BY</div>
+        <div class="logo-wrap">
+            <div class="logo-glow">孤岛霓虹灯</div>
+            <div class="logo-neon">孤岛霓虹灯</div>
+        </div>
+        <div class="by">@孤岛霓虹灯　by　<b>十柚渔</b></div>
+        <div class="tagline">在喧嚣里，替一座孤岛点一盏灯。</div>
+    </div>
+
+    <div class="footer">爆款 IP 的情绪结构检查表 · <b>5 维 / 20 项 / 加权满分 26</b> · 跨学科 IP 诊断框架 v1.0</div>
+
+</div>
+
+<script>
+    const items = document.querySelectorAll('.item');
+    const scoreNum = document.getElementById('scoreNum');
+    const scoreFill = document.getElementById('scoreFill');
+    const checkedCount = document.getElementById('checkedCount');
+    const verdict = document.getElementById('verdict');
+    const MAX = 26;
+
+    function update() {
+        let score = 0, count = 0;
+        items.forEach(it => {
+            if (it.classList.contains('checked')) {
+                score += parseInt(it.dataset.w);
+                count++;
+            }
+        });
+        scoreNum.textContent = score;
+        checkedCount.textContent = count;
+        const pct = Math.round(score / MAX * 100);
+        scoreFill.style.width = pct + '%';
+        let v;
+        if (pct >= 80) v = '结构性爆款 ★';
+        else if (pct >= 55) v = '高潜力 IP';
+        else if (pct >= 30) v = '网红 / 早期';
+        else if (count > 0) v = '结构偏弱';
+        else v = '待评估';
+        verdict.textContent = v;
+    }
+
+    items.forEach(it => {
+        it.addEventListener('click', e => {
+            if (e.target.tagName === 'TEXTAREA') return;
+            it.classList.toggle('checked');
+            update();
+        });
+    });
+
+    function resetAll() {
+        items.forEach(it => it.classList.remove('checked'));
+        document.querySelectorAll('textarea, input').forEach(el => el.value = '');
+        update();
+    }
+</script>
+
+
+
+</body></html>
